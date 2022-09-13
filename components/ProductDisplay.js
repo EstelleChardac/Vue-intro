@@ -30,13 +30,17 @@ app.component("product-display", {
           class="color-circle" 
           :style="{ backgroundColor: variant.color }">
         </div>
-        
         <button 
           class="button" 
           :class="{ disabledButton: !inStock }" 
           :disabled="!inStock" 
           v-on:click="addToCart">
           Add to Cart
+        </button>
+        <button 
+          class="button" 
+          v-on:click="removeItem">
+          Remove Item
         </button>
         <review-list v-if="reviews.length" :reviews="reviews"></review-list>
 <review-form @review-submitted="addReview"></review-form>
@@ -69,6 +73,9 @@ app.component("product-display", {
   methods: {
     addToCart() {
       this.$emit("add-to-cart", this.variants[this.selectedVariant].id);
+    },
+    removeItem() {
+      this.$emit("remove-item", this.variants[this.selectedVariant].id);
     },
     updateVariant(index) {
       this.selectedVariant = index;
